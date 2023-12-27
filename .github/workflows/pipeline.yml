@@ -52,4 +52,13 @@ jobs:
         dockerhub-user: ${{ secrets.DOCKERHUB_USERNAME }}
         dockerhub-password: ${{ secrets.DOCKERHUB_TOKEN }}
         command: quickview, cves
+        only-severities: critical, high
+        sarif-file: scout-report.sarif
+
+    - name: Upload Artifact 
+      uses: actions/upload-artifact@v3 
+      if: always() # avoide cancellation
+      with:
+        name: scout-report
+        path: scout-report.sarif
         
